@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}Kleenfoods - Home of fresh!{% endblock title %}</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap"
+      rel="stylesheet"
+    />
+    {% include "styles.html" %}
+    {% block extra_style %}
+<style>
+.table tbody tr td.product-remove button {
+      bordeR: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 4px 10px;
+      color: #000000;
+      -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+    text-decoration: none;
+    cursor: pointer;}
+
+      .table tbody tr td.product-remove button:hover {
+        border: 1px solid #82ae46;
+        background: #82ae46;
+         text-decoration: none;
+    color: #82ae46; }
+
+        .table tbody tr td.product-remove button:hover span {
+          color: #fff; }
+
+          .table tbody tr td.product-remove button:focus {
+    }
+    
+</style>
+{% endblock extra_style %}
+  </head>
+  <body class="goto-here">
+    {% include "navbar.html" %}
+    {% block content %} {% endblock content %}
+    {% block extra_body %} {% endblock %}
+    {% include "footer.html" %}
+    {% include "scripts.html" %}
+    {% block extra_scripts %} {% endblock extra_scripts %}
+  </body>
+</html>

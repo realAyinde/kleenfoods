@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block head_title %}Kleenfoods - Account{% endblock head_title %}</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap"
+      rel="stylesheet"
+    />
+    {% include "styles.html" %}
+    {% block extra_style %} {% endblock extra_style %}
+  </head>
+  <body class="goto-here">
+  {% include "navbar.html" %}
+        <div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_1.jpg' %});">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Blog</span></p>
+            <h1 class="mb-0 bread">Blog</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+ {% block content %}
+     <section class="ftco-section ftco-degree-bg">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-8 ftco-animate">
+        {% block posts %}
+						
+
+              {% endblock posts %} 
+          </div> <!-- .col-md-8 -->
+
+          <!--sidebar-->
+            
+                    {% block sidebar %}
+<div class="col-lg-4 sidebar ftco-animate">
+            <div class="sidebar-box">
+              <form action="#" class="search-form">
+                <div class="form-group">
+                  <span class="icon ion-ios-search"></span>
+                  <input type="text" class="form-control" placeholder="Search...">
+                </div>
+              </form>
+            </div>
+            <div class="sidebar-box ftco-animate">
+            	<h3 class="heading">Categories</h3>
+              <ul class="categories">
+              {% for category in categories %}
+                <li><a href="#">{{category.name}} <span>({{category.posts_count}})</span></a></li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <div class="sidebar-box ftco-animate">
+              <h3 class="heading">Recent Blog</h3>
+              {% for recent in recent_posts %}
+              <div class="block-21 mb-4 d-flex">
+                <a class="blog-img mr-4" style="background-image: url({{recent.image.url}});"></a>
+                <div class="text">
+                  <h3 class="heading-1"><a href="{{recent.get_absolute_url}}">{{recent.title}}</a></h3>
+                  <div class="meta">
+                    <div><a href="#"><span class="icon-calendar"></span> {{recent.publish}}</a></div>
+                    {% comment %} <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                    <div><a href="#"><span class="icon-chat"></span> 19</a></div> {% endcomment %}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+          </div>
+          </div>
+                    {% endblock sidebar %}
+
+    {% endblock content %}
+    {% block extra_body %} {% endblock %}
+                    {% include 'footer.html' %}
+    {% include "scripts.html" %}
+    {% block extra_scripts %} {% endblock extra_scripts %}
+  </body>
+</html>

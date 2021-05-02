@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block posts %}
+{% comment %} <div class="col-lg-8 ftco-animate fadeInUp ftco-animated"> {% endcomment %}
+  <h2 class="mb-3">{{post.title}}</h2>
+  <p>
+    <img src="{{post.image.url}}" alt="" class="img-fluid" />
+  </p>
+  <section>{{post.body|safe}}</section>
+  {% comment %}
+  <div class="tag-widget post-tag-container mb-5 mt-5">
+    <div class="tagcloud">
+      <a href="#" class="tag-cloud-link">Life</a>
+      <a href="#" class="tag-cloud-link">Sport</a>
+      <a href="#" class="tag-cloud-link">Tech</a>
+      <a href="#" class="tag-cloud-link">Travel</a>
+    </div>
+  </div>
+  {% endcomment %}
+{% comment %} </div> {% endcomment %}
+
+{% endblock posts %}

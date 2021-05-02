@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}Kleenfoods - Home of fresh!{% endblock title %}</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="goto-here">
+
+<form>
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+  <button class="btn btn-primary py-2 px-3" type="button" onClick="makePayment()">Pay Now</button>
+</form>
+
+<script>
+  function makePayment() {
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK_TEST-31d61a13026483fc38f15f0e90232374-X",
+      tx_ref: "hooli-tx-1920bbtyt",
+      amount: 54600,
+      currency: "NGN",
+      country: "NG",
+      payment_options: "card,mobilemoney,ussd",
+      customer: {
+        email: "user@gmail.com",
+        phone_number: "08102909304",
+        name: "yemi desola",
+      },
+      callback: function (data) { // specified callback function
+        console.log(data);
+      },
+      customizations: {
+        title: "My store",
+        description: "Payment for items in cart",
+        logo: "https://assets.piedpiper.com/logo.png",
+      },
+    });
+  }
+</script>
+  </body>
+</html>

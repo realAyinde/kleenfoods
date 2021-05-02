@@ -1,0 +1,114 @@
+{% extends 'shop/base.html' %}
+
+{% block title %}
+  {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block shop_list %}
+   
+	<div class="row justify-content-center">
+    			<div class="col-md-10 mb-5 text-center">
+				{% with request.resolver_match.url_name as url_name %}
+    				<ul class="product-category">
+    					<li> <a href="{% url "core:item_list" %}" {% if not category %}class="active"{% endif %}>All</a></li>
+                        {% for c in categories %}
+                            <li>
+                                <a href="{{ c.get_absolute_url }}" {% if category.slug == c.slug %} class="active" {% endif %}>{{ c.name }}</a>
+                            </li>
+                        {% endfor %}
+					{% endwith %}
+    			</div>
+    		</div>
+
+    		<div class="row">
+            {% for item in items %}
+    			<div class="col-md-6 col-lg-3 ftco-animate">
+    				<div class="product">
+    					<a href="{{ item.get_absolute_url }}" class="img-prod"><img class="img-fluid" src="{{item.image.url}}" alt="Colorlib Template">
+    						{% if item.discount %}
+						<span class="status">{{item.discount}}%</span>
+						{% endif %}
+							<div class="overlay"></div>
+    					</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#">{{item.name}}</a></h3>
+    						<div class="d-flex">
+    							<div class="pricing">
+		    						<p class="price"><span>#{{item.price}}</span></p>
+		    					</div>
+	    					</div>
+    						<div class="bottom-area d-flex px-3">
+	    						<div class="m-auto d-flex">
+	    							{% comment %} <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+	    								<span><i class="ion-ios-menu"></i></span>
+	    							</a> {% endcomment %}
+
+									{% comment %} <form action="{% url "cart:cart_add" item.id %}" method="post">
+									{% csrf_token %}
+									<a onclick="location.href='@Url.Action("{% url "cart:cart_add" item.id %}")'" style="text-decoration: none; cursor:pointer;" type="submit" class="buy-now d-flex justify-content-center align-items-center mx-1">
+									<span><i class="ion-ios-cart"></i></span>	
+									</a>
+									</form> {% endcomment %}
+
+	    							<a href="" data-id="{{item.id}}" class="add_to_cart buy-now d-flex justify-content-center align-items-center mx-1">
+	    								<span><i class="ion-ios-cart"></i></span>
+	    							</a>
+
+	    							{% comment %} <a href="#" class="heart d-flex justify-content-center align-items-center ">
+	    								<span><i class="ion-ios-heart"></i></span>
+	    							</a> {% endcomment %}
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+
+				{% endfor %}
+			
+				
+    		</div>
+		
+{% endblock shop_list %}
+
+{% block pagination %}
+			
+    		<div class="row mt-5">
+          <div class="col text-center">
+            <div class="block-27">
+              <ul>
+                <li><a href="#">&lt;</a></li>
+                <li class="active"><span>1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&gt;</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+		{% endblock pagination %}
+
+{% block extra_scripts %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add_to_cart').on('click', function(e){
+			e.preventDefault()
+            item_id = $(this).attr('data-id')
+            data = {
+                item_id: item_id
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '{% url "cart:ajax_cart_add" %}',
+                data: data,
+                success: function(data){
+					console.log(data)
+                    console.log('success')
+                }
+            })
+        })
+    });
+</script>
+{% endblock extra_scripts %}

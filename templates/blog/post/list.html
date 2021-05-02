@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block posts %}
+<div class="row">
+{% for post in posts %}
+				<div class="col-md-12 d-flex ftco-animate">
+		            <div class="blog-entry align-self-stretch d-md-flex">
+		              <a href="{{ post.get_absolute_url }}" class="block-20" style="background-image: url({{post.image.url}});">
+		              </a>
+		              <div class="text d-block pl-md-4">
+		              	<div class="meta mb-3">
+		                  <div><a href="{{ post.get_absolute_url }}">{{post.publish}}</a></div>
+		                  <div><a>{{post.author}}</a></div>
+		                <h3 class="heading"><a href="#">{{post.title}}</a></h3>
+		                <p>{{ post.body|truncatewords:30|linebreaks }}</p>
+                        <p><a href="{{ post.get_absolute_url }}" class="btn btn-primary py-2 px-3">Read more</a></p>
+		              </div>
+		            </div>
+		          </div>
+                  </div>
+{% endfor %}
+</div>
+{% endblock posts %}

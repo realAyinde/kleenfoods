@@ -1,0 +1,68 @@
+{% extends "registration/base.html" %}
+
+{% block head_title %}kleenfoods - Signup{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mb-5 pb-3">
+  <div class="col-10 col-md-8 col-lg-5 mt-5 cart-wrap ftco-animate">
+    <div class="cart-total mb-3">
+      <div class="text-center">
+        <a class="navbar-brand text-center" href="{% url 'core:home' %}">Kleenfoods</a>
+      </div>
+    		<h3>Sign Up</h3>
+    		<p>Please fill this form to create an account</p>
+  			<form action="#" class="info" method='post' action='{% url 'signup' %}'>
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <p>There are errors in the form</p>
+        {% endif %}
+  
+	              <div class="form-group">
+	              	<label for="name">Username</label>
+                  <input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" required="" id="id_username" class="form-control text-left px-3">
+	              </div>
+	              <div class="form-group">
+	              	<label for="email">Email</label>
+                  <input type="email" name="email" maxlength="254" autofocus="" required="" id="id_email" class="form-control text-left px-3">
+	              </div>
+	              <div class="form-group">
+	              	<label for="password">Password</label>
+                  <input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" class="form-control text-left px-3" >
+	              </div>
+	              <div class="form-group">
+	              	<label for="password2">Confirm Password</label>
+                  <input type="password" name="password2" autocomplete="new-password" required="" id="id_password2" class="form-control text-left px-3">
+	              </div>
+	              <div class="row justify-content-center">
+	                <input type="submit" value="Sign Up" class="btn btn-primary px-3"/>
+	              </div>
+                  
+	            </form>
+    				</div class="text-center">
+    				    <p class="text-center">Already have an account? <a href="{% url 'core:login' %}">Login here</a></p>
+    			    </div>
+                </div>
+                </div>
+  {% comment %} <main>
+    <div class="container">
+      <section class="mb-4">
+        <div class="row wow fadeIn">
+          <div class='col-6 offset-3'>
+            <h1>{% trans "Sign Up" %}</h1>
+            <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+              {% csrf_token %}
+              {{ form|crispy }}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <button class='btn btn-primary' type="submit">{% trans "Sign Up" %} &raquo;</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main> {% endcomment %}
+{% endblock %}
