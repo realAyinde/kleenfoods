@@ -1,8 +1,36 @@
 from django.db import models
 from core.models import Item
+from payment.models import Payment
 from django_countries.fields import CountryField
-from djmoney.models.fields import MoneyField
 from phonenumber_field.modelfields import PhoneNumberField
+
+class OrderItem(models.Model):
+    # order = models.ForeignKey(
+    #     Order, related_name='cart_items', on_delete=models.CASCADE)
+    item = models.ForeignKey(
+        Item, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=12, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return str(self.id)
+
+    def get_cost(self):
+        return self.price * self.quantity
+
+    def get_total_item_price(self):
+        return self.quantity * self.item.price
+
+    def get_total_discount_item_price(self):
+        return self.quantity * self.item.discount_price
+
+    def get_amount_saved(self):
+        return self.get_total_item_price() - self.get_total_discount_item_price()
+
+    def get_final_price(self):
+        if self.item.discount_price:
+            return self.get_total_discount_item_price()
+        return self.get_total_item_price()
 
 
 class Order(models.Model):
@@ -18,7 +46,13 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
-    payment_id = models.CharField(max_length=150, blank=True)
+    ordered = models.BooleanField(default=False)
+    being_delivered = models.BooleanField(default=False)
+    payment = models.ForeignKey(
+        Payment, on_delete=models.SET_NULL, blank=True, null=True)
+    ref_code = models.CharField(max_length=20, blank=True, null=True)
+    items = models.ManyToManyField(OrderItem)
+    # payment_id = models.CharField(max_length=150, blank=True)
     # coupon = models.ForeignKey(
     #     'Coupon', on_delete=models.SET_NULL, blank=True, null=True)
 
@@ -30,6 +64,14 @@ class Order(models.Model):
 
     def get_total_cost(self):
         total = sum(item.get_cost() for item in self.items.all())
+        # if self.coupon:
+        #     total -= self.coupon.amount
+        return total
+
+    def get_total(self):
+        total = 0
+        for order_item in self.items.all():
+            total += order_item.get_final_price()
         if self.coupon:
             total -= self.coupon.amount
         return total
@@ -95,31 +137,3 @@ class Order(models.Model):
 #     class Meta:
 #         verbose_name_plural = 'Addresses'
 
-
-class OrderItem(models.Model):
-    order = models.ForeignKey(
-        Order, related_name='items', on_delete=models.CASCADE)
-    item = models.ForeignKey(
-        Item, related_name='order_items', on_delete=models.CASCADE)
-    price = models.DecimalField(null=True, max_digits=12, decimal_places=2)
-    quantity = models.PositiveIntegerField(default=1)
-
-    def __str__(self):
-        return str(self.id)
-
-    def get_cost(self):
-        return self.price * self.quantity
-
-    def get_total_item_price(self):
-        return self.quantity * self.item.price
-
-    def get_total_discount_item_price(self):
-        return self.quantity * self.item.discount_price
-
-    def get_amount_saved(self):
-        return self.get_total_item_price() - self.get_total_discount_item_price()
-
-    def get_final_price(self):
-        if self.item.discount_price:
-            return self.get_total_discount_item_price()
-        return self.get_total_item_price()

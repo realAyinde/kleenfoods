@@ -53,17 +53,19 @@
         </li>
 
         <li class="nav-item cta cta-colored">
-            {% with total_items=cart|length %}
+            {% comment %} {% with total_items=cart|length %}
             <a href="{% url "cart:cart_detail" %}" class="nav-link">
                 <span class="icon-shopping_cart"></span>
                 [{% if total_items > 0 %}{{ total_items }}{% else %}0{% endif %}]
             </a>
-        </li>
-
+        
+  {% endwith %} {% endcomment %}
           
-
-    
-  {% endwith %}
+            <a href="{% url "cart:cart_detail" %}" class="nav-link">
+                <span class="icon-shopping_cart"></span>
+                <span class="kleenecart"></span>
+            </a>
+        </li>
 
       </ul>
     </div>

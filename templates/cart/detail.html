@@ -242,6 +242,7 @@ cart {% endblock %}
                     if (data['success']) {
                       $(`[data-id$="${item_id}"]`).parent().parent().remove()
                     }
+                    $('.kleencart').html(`${data['cart']}`) 
                     emptyCart()
                 }
             })

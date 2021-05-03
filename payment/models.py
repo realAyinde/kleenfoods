@@ -1,5 +1,4 @@
 from django.db import models
-from djmoney.models.fields import MoneyField
 import datetime
 
 # Create your models here.
@@ -17,7 +16,7 @@ class DeditCard(models.Model):
     expiry_year = models.IntegerField(choices=YEAR_CHOICES,
                  default=datetime.datetime.now().year+3,)
     cvv = models.PositiveSmallIntegerField(("CVV / CVV2"))
-    balance = MoneyField(("Available Balance"), max_digits=10, decimal_places=2, default_currency='KLN')
+    balance = models.DecimalField(("Available Balance"), max_digits=10, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     pin = models.PositiveSmallIntegerField()
@@ -33,9 +32,8 @@ class DeditCard(models.Model):
 import uuid
 
 class Payment(models.Model):
-    # kleen_charge_id = models.CharField(max_length=50)
     ref_no = models.CharField(("Reference Number"), blank=True, editable=False, unique=True, max_length=36, default=uuid.uuid1)
-    amount = MoneyField(max_digits=10, decimal_places=2)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
     timestamp = models.DateTimeField(auto_now_add=True)
     success = models.BooleanField(default=False)
 

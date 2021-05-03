@@ -3,7 +3,6 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
-from djmoney.models.fields import MoneyField
 from decimal import Decimal
 # from django.urls import reverse
 # from django_countries.fields import CountryField
@@ -72,6 +71,11 @@ class Item(models.Model):
         else:
             p = self.price
         return p
+    
+    def get_cost(self):
+        print(self.price)
+        print(self.quantity)
+        return self.price * self.quantity
 
     # def get_absolute_url(self):
     #     return reverse("core:item", kwargs={

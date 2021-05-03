@@ -169,7 +169,7 @@
 	    							</a> {% endcomment %}
 
 									
-									<a href="" data-id="{{item.id}}" style="text-decoration: none; cursor:pointer;" type="submit"  class="add_to_cart buy-now d-flex justify-content-center align-items-center mx-1">
+									<a href="" data-id="{{item.id}}" style="text-decoration: none; cursor:pointer;" type="submit"  class="add_2_cart buy-now d-flex justify-content-center align-items-center mx-1">
 									<span><i class="ion-ios-cart"></i></span>	
 									</a>
 									
@@ -233,26 +233,4 @@
 
 {% endblock %}
 {% block extra_scripts %}
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('.add_to_cart').on('click', function(e){
-			e.preventDefault()
-            item_id = $(this).attr('data-id')
-            data = {
-                item_id: item_id,
-				quantity: 1
-            }
-
-            $.ajax({
-                type: 'GET',
-                url: '{% url "cart:ajax_cart_add" %}',
-                data: data,
-                success: function(data){
-					console.log(data)
-                    console.log('success')
-                }
-            })
-        })
-    });
-</script>
 {% endblock extra_scripts %}

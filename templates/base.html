@@ -35,6 +35,78 @@
     {% block extra_body %} {% endblock %}
     {% include "footer.html" %}
     {% include "scripts.html" %}
+
+    <script>
+		$(document).ready(function(){
+		var quantity=0;
+		   $('.quantity-right-plus').click(function(e){
+		        // Stop acting like a button
+		        e.preventDefault();
+		        // Get the field name
+		        var quantity = parseInt($('#id_quantity').val());
+		        // If is not undefined
+		            $('#id_quantity').val(quantity + 1);     
+		            // Increment
+		    });
+		     $('.quantity-left-minus').click(function(e){
+		        // Stop acting like a button
+		        e.preventDefault();
+		        // Get the field name
+		        var quantity = parseInt($('#id_quantity').val());
+		        // If is not undefined
+		            // Increment
+		            if(quantity>0){
+		            $('#id_quantity').val(quantity - 1);
+		            }
+		    });
+			
+        $('.add_to_cart').on('click', function(e){
+			e.preventDefault();
+            item_id = $(this).attr('data-id')
+
+          	q= $('#id_quantity').val()
+			console.log(q)
+            data = {
+				'quantity': parseInt(q),
+                'item_id': item_id
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '{% url "cart:ajax_cart_add" %}',
+                data: data,
+                success: function(data){
+					console.log(data)
+                    console.log('success')
+					$('.kleencart').html(`${data['cart']}`) 
+                }
+            })
+        });
+		
+		});
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.add_2_cart').on('click', function(e){
+			e.preventDefault()
+            item_id = $(this).attr('data-id')
+            data = {
+				'quantity': 1,
+                'item_id': item_id
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: '{% url "cart:ajax_cart_add" %}',
+                data: data,
+                success: function(data){
+					$('.kleenecart').html(`${data['cart']}`) 
+                }
+            })
+        })
+    });
+</script>
     {% block extra_scripts %} {% endblock extra_scripts %}
   </body>
 </html>

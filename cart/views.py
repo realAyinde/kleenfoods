@@ -20,15 +20,16 @@ def ajax_cart_add(request):
     #     cart.add(item=item,
     #              quantity=cd['quantity'],
     #              override_quantity=cd['override'])
-
-    return JsonResponse({'success': 'Sucessfully Added'})
+    cart = len(cart)
+    return JsonResponse({'success': True, 'cart':cart})
 
 def ajax_cart_remove(request):
     cart = Cart(request)
     item_id = request.GET.get('item_id')
     item = get_object_or_404(Item, id=item_id)
     cart.remove(item)
-    return JsonResponse({'success': True, 'id': item_id})
+    cart = len(cart)
+    return JsonResponse({'success': True, 'id': item_id, 'cart':cart})
 
 @require_POST
 def cart_add(request, item_id):

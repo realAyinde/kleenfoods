@@ -16,12 +16,13 @@ def index(request):
 
 
 def payment_process(request):
-    if request.method == 'GET':
-        form = DeditCardCreateForm()
-        return render(request, 'payment/dummy.html', {'form':form})
+    # if request.method == 'GET':
+    #     form = DeditCardCreateForm()
+    #     return render(request, 'payment/dummy.html', {'form':form})
 
-    elif request.method == 'POST':
+    if request.method == 'POST':
         form = DeditCardCreateForm(request.POST)
+        print(order_id)
         if form.is_valid():
             print(form)
             number = form.cleaned_data["number"]
@@ -39,6 +40,7 @@ def payment_process(request):
                      )
                  return render(request,"payment/done.html",
                        {"debit_card":dedit_card})
+
             except DeditCard.DoesNotExist:
                 return render(request, "payment/canceled.html", {"form":form})
         # order_id = request.session.get('order_id')
@@ -56,10 +58,4 @@ def payment_process(request):
         # else:
         #     return redirect('payment:canceled')
     else:
-        # generate token
-        # client_token = gateway.client_token.generate()
-        return render(request,
-                      'payment/dummy.html',
-                      {'order': order,
-                    #    'client_token': client_token
-                    })
+        return render(request, 'payment/dummy.html')
