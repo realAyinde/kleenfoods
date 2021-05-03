@@ -3,12 +3,6 @@ from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 
 
-# PAYMENT_CHOICES = (
-#     ('S', 'Stripe'),
-#     ('P', 'PayPal')
-# )
-
-
 class CheckoutForm(forms.Form):
     shipping_address = forms.CharField(required=False)
     shipping_address2 = forms.CharField(required=False)

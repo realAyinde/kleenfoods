@@ -12,6 +12,5 @@ urlpatterns = [
     path('payment/', include('payment.urls', namespace='payment')),
     path('', include('core.urls', namespace='core')),
     # path('accounts/', include('users.urls'))
-    path("djangoflutterwave/", include("djangoflutterwave.urls", namespace="djangoflutterwave"))
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

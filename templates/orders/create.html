@@ -3,171 +3,183 @@
 
 {% block content %}
 
-    <div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_1.jpg' %});">
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Checkout</span></p>
-            <h1 class="mb-0 bread">Checkout</h1>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="hero-wrap hero-bread" style="background-image: url({% static 'images/bg_1.jpg' %});">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="col-md-9 ftco-animate text-center">
+				<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Checkout</span></p>
+				<h1 class="mb-0 bread">Checkout</h1>
+			</div>
+		</div>
+	</div>
+</div>
 
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-xl-7 ftco-animate">
-            {% comment %} <form method="post" class="order-form">
-    {{ form.as_p }}
-    <p><input type="submit" value="Place order"></p>
-    {% csrf_token %}
-  </form> {% endcomment %}
-          <form method="post" class="order-form">
-						<div class="billing-form">
-							<h3 class="mb-4 billing-heading">Delivery Details</h3>
-							{% comment %} <h3 class="mb-4 billing-heading">Billing Details</h3> {% endcomment %}
-	          	<div class="row align-items-end">
-	          		<div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="first_name">First Name</label>
-                        <input type="text" class="form-control" name="first_name" maxlength="50" required="" id="id_first_name">
-	                </div>
-	              </div>
-	              <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="lastname">Last Name</label>
-                        <input type="text" class="form-control" name="last_name" maxlength="50" required="" id="id_last_name">
-	                </div>
-                </div>
-                <div class="w-100"></div>
-		            <div class="col-md-12">
-		            	<div class="form-group">
-		            		<label for="country">State / Country</label>
-		            		<input type="text" class="form-control" name="country" maxlength="50" required="" id="id_country">
-		            	</div>
-		            </div>
-		            <div class="w-100"></div>
-		            <div class="col-md-12">
-		            	<div class="form-group">
-	                	<label for="address">Address</label>
-                        <input type="text" class="form-control" name="address" maxlength="250" required="" id="id_address">
-	                </div>
-		            </div>
-		            <div class="w-100"></div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-	                	<label for="towncity">Town / City</label>
-                        <input type="text" class="form-control" name="city" maxlength="100" required="" id="id_city">
-	                </div>
-		            </div>
-		            <div class="col-md-6">
-		            	<div class="form-group">
-		            		<label for="postcodezip">Postcode / ZIP *</label>
-                            <input type="text" class="form-control" name="postal_code" maxlength="20" required="" id="id_postal_code">
-	                </div>
-		            </div>
-		            <div class="w-100"></div>
-		            <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="phone">Phone</label>
-                        <input type="tel" class="form-control" name="phone" maxlength="128" required="" id="id_phone">
-	                </div>
-	              </div>
-	              <div class="col-md-6">
-	                <div class="form-group">
-	                	<label for="email">Email Address</label>
-                        <input type="email" class="form-control" name="email" maxlength="254" required="" id="id_email">
-	                </div>
-                </div>
-                {% comment %} <div class="w-100"></div>
-                <div class="col-md-12">
-                	<div class="form-group mt-4">
-										<div class="radio">
-										  <label class="mr-3"><input type="radio" name="optradio"> Create an Account? </label>
-										  <label><input type="radio" name="optradio"> Ship to different address</label>
-										</div>
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-xl-7 ftco-animate">
+				{% comment %} <form method="post" class="order-form">
+					{{ form.as_p }}
+					<p><input type="submit" value="Place order"></p>
+					{% csrf_token %}
+				</form> {% endcomment %}
+				<form method="post" class="order-form">
+					<div class="billing-form">
+						<h3 class="mb-4 billing-heading">Delivery Details</h3>
+						{% comment %} <h3 class="mb-4 billing-heading">Billing Details</h3> {% endcomment %}
+						<div class="row align-items-end">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="first_name">First Name</label>
+									<input type="text" class="form-control" name="first_name" maxlength="50" required=""
+										   id="id_first_name">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="lastname">Last Name</label>
+									<input type="text" class="form-control" name="last_name" maxlength="50" required=""
+										   id="id_last_name">
+								</div>
+							</div>
+							<div class="w-100"></div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="country">State / Country</label>
+									<input type="text" class="form-control" name="country" maxlength="50" required=""
+										   id="id_country">
+								</div>
+							</div>
+							<div class="w-100"></div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="address">Address</label>
+									<input type="text" class="form-control" name="address" maxlength="250" required=""
+										   id="id_address">
+								</div>
+							</div>
+							<div class="w-100"></div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="city">Town / City</label>
+									<input type="text" class="form-control" name="city" maxlength="100" required=""
+										   id="id_city">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="postcodezip">Postcode / ZIP *</label>
+									<input type="text" class="form-control" name="postal_code" maxlength="20"
+										   required="" id="id_postal_code">
+								</div>
+							</div>
+							<div class="w-100"></div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="phone">Phone</label>
+									<input type="tel" class="form-control" name="phone" maxlength="128" required=""
+										   id="id_phone">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="email">Email Address</label>
+									<input type="email" class="form-control" name="email" maxlength="254" required=""
+										   id="id_email">
+								</div>
+							</div>
+							<div class="w-100"></div>
+							<div class="col-md-12">
+								<div class="form-group mt-4">
+									<div class="radio">
+										<label class="mr-3"><input type="radio" name="optradio"> Create an Account?
+										</label>
+										<label><input type="radio" name="optradio"> Ship to different address</label>
 									</div>
-                </div> {% endcomment %}
-	            </div>
-	          </div><!-- END -->
+								</div>
+							</div>
+						</div>
+					</div><!-- END -->
+			</div>
+			<div class="col-xl-5">
+				<div class="row mt-5 pt-3">
+					<div class="col-md-12 d-flex mb-5">
+						<div class="cart-detail cart-total p-3 p-md-4">
+							<h3 class="billing-heading mb-4">Cart Total</h3>
+							<p class="d-flex">
+								<span>Subtotal</span>
+								<span>#{{ cart.get_total_price }}</span>
+							</p>
+							<p class="d-flex">
+								<span>Delivery</span>
+								<span>Free shipping</span>
+							</p>
+							<p class="d-flex">
+								<span>Discount</span>
+
+								<span>#{{cart.get_total_discount_price}}</span>
+							</p>
+							<hr>
+							<p class="d-flex total-price">
+								<span>Total</span>
+								<span>#{{ cart.get_final_price }}</span>
+							</p>
+						</div>
 					</div>
-					<div class="col-xl-5">
-	          <div class="row mt-5 pt-3">
-	          	<div class="col-md-12 d-flex mb-5">
-	          		<div class="cart-detail cart-total p-3 p-md-4">
-	          			<h3 class="billing-heading mb-4">Cart Total</h3>
-	          			<p class="d-flex">
-		    						<span>Subtotal</span>
-		    						<span>#{{ cart.get_total_price }}</span>
-		    					</p>
-		    					<p class="d-flex">
-		    						<span>Delivery</span>
-		    						<span>#0.00</span>
-		    					</p>
-		    					<p class="d-flex">
-		    						<span>Discount</span>
-		    						<span>#0.00</span>
-		    					</p>
-		    					<hr>
-		    					<p class="d-flex total-price">
-		    						<span>Total</span>
-		    						<span>#00.00</span>
-		    					</p>
+					<div class="col-md-12">
+						<div class="cart-detail p-3 p-md-4">
+							<h3 class="billing-heading mb-4">Payment Method</h3>
+							<div class="form-group">
+								<div class="col-md-12">
+									<div class="radio">
+										<label><input type="radio" name="optradio" class="mr-2"> Direct Bank
+											Tranfer</label>
+									</div>
 								</div>
-	          	</div>
-	          	<div class="col-md-12">
-	          		<div class="cart-detail p-3 p-md-4">
-	          			<h3 class="billing-heading mb-4">Payment Method</h3>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Direct Bank Tranfer</label>
-											</div>
-										</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<div class="radio">
+										<label><input type="radio" name="optradio" class="mr-2"> Kleenepay</label>
 									</div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Kleenepay</label>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="checkbox">
-											   <label><input type="checkbox" value="" class="mr-2"> I have read and accept the terms and conditions</label>
-											</div>
-										</div>
-									</div>
-									<p><button type="submit" class="btn btn-primary py-3 px-4">Place an order</button></p>
 								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-12">
+									<div class="checkbox">
+										<label><input type="checkbox" value="" class="mr-2"> I have read and accept the
+											terms and conditions</label>
+									</div>
+								</div>
+							</div>
+							<p><button type="submit" class="btn btn-primary py-3 px-4">Place an order</button></p>
+						</div>
 
-	          	</div>
-	          </div>
-              {% csrf_token %}
-  </form>
-          </div> <!-- .col-md-8 -->
-        </div>
-      </div>
-    </section> <!-- .section -->
+					</div>
+				</div>
+				{% csrf_token %}
+				</form>
+			</div> <!-- .col-md-8 -->
+		</div>
+	</div>
+</section> <!-- .section -->
 
-		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
-      <div class="container py-4">
-        <div class="row d-flex justify-content-center py-5">
-          <div class="col-md-6">
-          	<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
-          	<span>Get e-mail updates about our latest shops and special offers</span>
-          </div>
-          <div class="col-md-6 d-flex align-items-center">
-            <form action="#" class="subscribe-form">
-              <div class="form-group d-flex">
-                <input type="text" class="form-control" placeholder="Enter email address">
-                <input type="submit" value="Subscribe" class="submit px-3">
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
+<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+	<div class="container py-4">
+		<div class="row d-flex justify-content-center py-5">
+			<div class="col-md-6">
+				<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+				<span>Get e-mail updates about our latest shops and special offers</span>
+			</div>
+			<div class="col-md-6 d-flex align-items-center">
+				<form action="#" class="subscribe-form">
+					<div class="form-group d-flex">
+						<input type="text" class="form-control" placeholder="Enter email address">
+						<input type="submit" value="Subscribe" class="submit px-3">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
 {% endblock content %}

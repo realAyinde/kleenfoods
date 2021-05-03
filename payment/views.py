@@ -19,7 +19,13 @@ def payment_process(request):
     order_id = request.session.get('order_id')
     order = get_object_or_404(Order, id=order_id)
     total_cost = order.get_total_cost()
-    if request.method == 'POST':
+
+    if request.method == 'GET':
+        return render(request,
+                      'payment/dummy.html',
+                    #   {'order': order}
+                    )
+    elif request.method == 'POST':
         # retrieve nonce
         nonce = request.POST.get('payment_method_nonce', None)
         # create and submit transaction
@@ -38,7 +44,7 @@ def payment_process(request):
         # generate token
         # client_token = gateway.client_token.generate()
         return render(request,
-                      'payment/process.html',
+                      'payment/dummy.html',
                       {'order': order,
                     #    'client_token': client_token
                     })

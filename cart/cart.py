@@ -1,6 +1,8 @@
 from decimal import Decimal
 from django.conf import settings
 from core.models import Item
+import locale
+locale.setlocale(locale.LC_ALL, 'KLN')
 
 class Cart(object):
     def __init__(self, request):
@@ -21,7 +23,8 @@ class Cart(object):
         item_id = str(item.id)
         if item_id not in self.cart:
             self.cart[item_id] = {'quantity': 0,
-                                     'price': str(item.price)}
+                                     'price': str(item.price),
+                                     'discount': str(item.get_discount())}
         if override_quantity:
             self.cart[item_id]['quantity'] = quantity
         else:
@@ -50,6 +53,7 @@ class Cart(object):
             cart[str(item.id)]['item'] = item
         for item in cart.values():
             item['price'] = Decimal(item['price'])
+            item['discount'] = item['discount']
             item['total_price'] = item['price'] * item['quantity']
             yield item
 
@@ -65,6 +69,21 @@ class Cart(object):
 
     def get_total_price(self):
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+
+    def get_total_discount_price(self):
+        sum = 0
+        for item in self.cart.values():
+            if (item['discount'] != 'None'):
+                sum += Decimal(item['discount']) * item['quantity']
+                print(sum)
+                # sum += Decimal(item['discount']) * item['quantity']
+        return sum
+        # return sum(Decimal(item['discount']) * item['quantity'] for item in self.cart.values())
+
+    def get_final_price(self):
+        return (sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values()) - self.get_total_discount_price())
+
+
     def clear(self):
         # remove cart from session
         del self.session[settings.CART_SESSION_ID]

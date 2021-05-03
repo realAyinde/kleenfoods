@@ -3,6 +3,8 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Sum
 from django.shortcuts import reverse
+from djmoney.models.fields import MoneyField
+from decimal import Decimal
 # from django.urls import reverse
 # from django_countries.fields import CountryField
 
@@ -21,17 +23,6 @@ ADDRESS_CHOICES = (
 
 #     def __str__(self):
 #         return self.user.username
-class Quantity(models.Model):
-    name = models.CharField(max_length=200, db_index=True)
-    slug = models.SlugField(max_length=200, unique=True)
-
-    class Meta:
-        ordering = ('name',)
-        verbose_name = 'quantity'
-        verbose_name_plural = 'quantities'
-
-    def __str__(self):
-        return self.name
 
 
 class Category(models.Model):
@@ -52,10 +43,8 @@ class Category(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     discount = models.IntegerField(("discount (%)"), blank=True, null=True)
-    quantity = models.ForeignKey(
-        Quantity, related_name='items', on_delete=models.CASCADE)
     category = models.ForeignKey(
         Category, related_name='items', on_delete=models.CASCADE)
     slug = models.SlugField(max_length=200, db_index=True)
@@ -72,10 +61,22 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse("core:item", kwargs={
-            'slug': self.slug
-        })
+    def get_discount(self):
+        if self.discount:
+            discount_price = Decimal((self.discount/100) * float(self.price))
+            return discount_price
+
+    def get_price(self):
+        if self.discount:
+            p = self.price - self.get_discount()
+        else:
+            p = self.price
+        return p
+
+    # def get_absolute_url(self):
+    #     return reverse("core:item", kwargs={
+    #         'slug': self.slug
+    #     })
 
     # def get_add_to_cart_url(self):
     #     return reverse("core:add-to-cart", kwargs={
@@ -93,7 +94,7 @@ class Item(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     discount = models.IntegerField(("discount (%)"),blank=True, null=True)
     slug = models.SlugField(max_length=200, db_index=True)
     image = models.ImageField(upload_to='recipes/%Y/%m/%d', blank=True)
@@ -102,7 +103,7 @@ class Recipe(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     instruction = models.TextField()
-    ingredients = models.ForeignKey("Item", on_delete=models.CASCADE)
+    ingredients = models.ManyToManyField("Item", verbose_name=("Ingredients"))
 
     def save(self, *args, **kwargs):
         self.price = round(self.price, 2)

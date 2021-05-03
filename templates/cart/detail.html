@@ -149,16 +149,16 @@ cart {% endblock %}
           </p>
           <p class="d-flex">
             <span>Delivery</span>
-            <span>$0.00</span>
+            <span>Free Shipping</span>
           </p>
           <p class="d-flex">
             <span>Discount</span>
-            <span>$3.00</span>
+            <span>#{{cart.get_total_discount_price}}</span>
           </p>
           <hr />
           <p class="d-flex total-price">
             <span>Total</span>
-            <span>$17.60</span>
+            <span>#{{cart.get_final_price}}</span>
           </p>
         </div>
         <p>
@@ -228,7 +228,7 @@ cart {% endblock %}
 
     $('.remove_from_cart').on('click', function(e){
 			e.preventDefault()
-            item_id = $(this).attr('data-id')
+            var item_id = $(this).attr('data-id')
             data = {
                 item_id: item_id
             }
@@ -240,7 +240,7 @@ cart {% endblock %}
                 success: function(data){
 					          console.log(data)
                     if (data['success']) {
-                      $('.remove_from_cart').parent().parent().remove()
+                      $(`[data-id$="${item_id}"]`).parent().parent().remove()
                     }
                     emptyCart()
                 }

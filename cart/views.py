@@ -28,7 +28,7 @@ def ajax_cart_remove(request):
     item_id = request.GET.get('item_id')
     item = get_object_or_404(Item, id=item_id)
     cart.remove(item)
-    return JsonResponse({'success': True})
+    return JsonResponse({'success': True, 'id': item_id})
 
 @require_POST
 def cart_add(request, item_id):
