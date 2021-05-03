@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
+
+
 def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
@@ -17,7 +19,8 @@ def order_create(request):
             cart.clear()
             return redirect("payment:process")
             # return render(request,
-            #               'orders/created.html',
+            #                 'payment/dummy.html',
+            #             #   'orders/created.html',
             #               {'order': order})
     else:
         form = OrderCreateForm()

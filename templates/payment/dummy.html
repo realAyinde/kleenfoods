@@ -3,90 +3,133 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>
-        Payment
-    </title>
+    <title>Payment</title>
     <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    
     <link
-      href="{% static 'css/payment.css' %}"
+      href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
       rel="stylesheet"
+      id="bootstrap-css"
     />
+
+    {% comment %}
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    {% endcomment %} {% comment %} {% include "styles.html" %} {% endcomment %}
+    {% comment %}
+    <link href="{% static 'css/payment.css' %}" rel="stylesheet" />
+    {% endcomment %}
   </head>
-  <body class="goto-here">
+  <body>
     <div class="container">
-     <div class="payment-title">
-        <h1>Payment Information</h1>
-    </div>
-    <div class="container preload">
-        <div class="creditcard">
-        <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Payment Details
-                    </h3>
-                    <div class="checkbox pull-right">
-                        <label>
-                            <input type="checkbox" />
-                            Remember
-                        </label>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <form role="form">
-                    <div class="form-group">
-                        <label for="cardNumber">
-                            CARD NUMBER</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"
-                                required autofocus />
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-7 col-md-7">
-                            <div class="form-group">
-                                <label for="expityMonth">
-                                    EXPIRY DATE</label>
-                                <div class="col-xs-6 col-lg-6 pl-ziro">
-                                    <input type="text" class="form-control" id="expityMonth" placeholder="MM" required />
-                                </div>
-                                <div class="col-xs-6 col-lg-6 pl-ziro">
-                                    <input type="text" class="form-control" id="expityYear" placeholder="YY" required /></div>
-                            </div>
-                        </div>
-                        <div class="col-xs-5 col-md-5 pull-right">
-                            <div class="form-group">
-                                <label for="cvCode">
-                                    CV CODE</label>
-                                <input type="password" class="form-control" id="cvCode" placeholder="CV" required />
-                            </div>
-                        </div>
-                    </div>
-                    </form>
-                </div>
+        <form method="post" class="debit-card-form">
+            {{ form.as_p }}
+            <p><input type="submit" value="Pay"></p>
+            {% csrf_token %}
+          </form>
+      <div class="row">
+        <div class="col-md-6 mt-5">
+          <div class="card card-default">
+            <div class="card-heading">
+              <h3 class="card-title">Payment Details</h3>
+              <div class="checkbox pull-right">
+                <label>
+                  <input type="checkbox" />
+                  Remember
+                </label>
+              </div>
             </div>
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><span class="badge pull-right"><span class="glyphicon glyphicon-usd"></span>4200</span> Final Payment</a>
-                </li>
-            </ul>
-            <br/>
-            <a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
+            <div class="card-body">
+              <form role="form">
+                <div class="form-group">
+                  <label for="cardNumber"> CARD NUMBER</label>
+                  <div class="input-group">
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="cardNumber"
+                      placeholder="Valid Card Number"
+                      required=""
+                      maxlength="16"
+                      autofocus=""
+                    />
+                    <span class="input-group-addon"
+                      ><span class="glyphicon glyphicon-lock"></span
+                    ></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-7 col-md-7">
+                    <div class="form-group">
+                      <label for="expityMonth"> EXPIRY DATE</label>
+                      <div class="col-xs-6 col-lg-6 pl-ziro">
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="expityMonth"
+                          placeholder="MM"
+                          min="1"
+                          max="12"
+                          required=""
+                        />
+                      </div>
+                      <div class="col-xs-6 col-lg-6 pl-ziro">
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="expityYear"
+                          placeholder="YY"
+                          min="2020"
+                          max="2024"
+                          required=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-5 col-md-5 pull-right">
+                    <div class="form-group">
+                      <label for="cvCode"> CV CODE</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="cvCode"
+                        placeholder="CV"
+                        maxlength="4"
+                        required=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <ul class="nav nav-pills nav-stacked">
+            <li class="active">
+              <a href="#"
+                ><span class="badge pull-right"
+                  ><span class="glyphicon glyphicon-usd"></span>4200</span
+                >
+                Final Payment</a
+              >
+            </li>
+          </ul>
+          <br />
+          <a
+            href="http://www.jquery2dotnet.com"
+            class="btn btn-success btn-lg btn-block"
+            role="button"
+            >Pay</a
+          >
         </div>
+      </div>
     </div>
-   
-    </div>
-  </div>
+
     <script src="{% static 'js/payment.js' %}"></script>
+    <script>
+
+    </script>
   </body>
 </html>

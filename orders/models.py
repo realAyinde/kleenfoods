@@ -101,7 +101,7 @@ class OrderItem(models.Model):
         Order, related_name='items', on_delete=models.CASCADE)
     item = models.ForeignKey(
         Item, related_name='order_items', on_delete=models.CASCADE)
-    price = MoneyField(max_digits=10, decimal_places=2, null=True, default_currency='KLN')
+    price = models.DecimalField(null=True, max_digits=12, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):

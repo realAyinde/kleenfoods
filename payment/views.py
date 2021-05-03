@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from orders.models import Order
 from .models import DeditCard
+from .forms import DeditCardCreateForm
 
 
 def payment_done(request):
@@ -15,31 +16,45 @@ def index(request):
 
 
 def payment_process(request):
-    debit_card = DeditCard(request)
-    order_id = request.session.get('order_id')
-    order = get_object_or_404(Order, id=order_id)
-    total_cost = order.get_total_cost()
-
     if request.method == 'GET':
-        return render(request,
-                      'payment/dummy.html',
-                    #   {'order': order}
-                    )
-    elif request.method == 'POST':
-        # retrieve nonce
-        nonce = request.POST.get('payment_method_nonce', None)
-        # create and submit transaction
-        result = None
+        form = DeditCardCreateForm()
+        return render(request, 'payment/dummy.html', {'form':form})
 
-        if result.is_success:
-            # mark the order as paid
-            order.paid = True
-            # store the unique transaction id
-            # order.braintree_id = result.transaction.id
-            order.save()
-            return redirect('payment:done')
-        else:
-            return redirect('payment:canceled')
+    elif request.method == 'POST':
+        form = DeditCardCreateForm(request.POST)
+        if form.is_valid():
+            print(form)
+            number = form.cleaned_data["number"]
+            expiry_month = form.cleaned_data["expiry_month"]
+            expiry_year = form.cleaned_data["expiry_year"]
+            pin = form.cleaned_data["pin"]
+            cvv = form.cleaned_data["cvv"]
+            try:
+                 dedit_card = DeditCard.objects.get(
+                     number = number,
+                     expiry_month = expiry_month,
+                     expiry_year = expiry_year,
+                     pin = pin,
+                     cvv = cvv
+                     )
+                 return render(request,"payment/done.html",
+                       {"debit_card":dedit_card})
+            except DeditCard.DoesNotExist:
+                return render(request, "payment/canceled.html", {"form":form})
+        # order_id = request.session.get('order_id')
+        # order = get_object_or_404(Order, id=order_id)
+        # total_cost = order.get_total_cost()
+        # # retrieve nonce
+        # nonce = request.POST.get('payment_method_nonce', None)
+        # # create and submit transaction
+        # result = None
+
+        # if result.is_success:
+        #     order.paid = True
+        #     order.save()
+        #     return redirect('payment:done')
+        # else:
+        #     return redirect('payment:canceled')
     else:
         # generate token
         # client_token = gateway.client_token.generate()

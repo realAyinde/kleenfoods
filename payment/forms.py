@@ -1,8 +1,8 @@
 from django import forms
-# from .models import DeditCard
+from .models import DeditCard
 
-# class DeditCardCreateForm(forms.ModelForm):
-#     class Meta:
-#         model = Order
-#         fields = ['first_name', 'last_name', 'email', 'address',
-#                   'postal_code', 'city', 'country', 'phone']
+class DeditCardCreateForm(forms.ModelForm):
+    class Meta:
+        model = DeditCard
+        fields = ['number', 'expiry_month', 'expiry_year', 'cvv',
+                  'pin']
